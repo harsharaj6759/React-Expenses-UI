@@ -1,8 +1,7 @@
-import "./styles.css";
-import Expenses from "./components/Expenses";
-
-function App() {
-  const expenses = [
+import { useState } from "react";
+import Expenses from "./components/ExpenseItem/Expenses";
+import NewExpense from "./components/NewExpense/NewExpenses";
+const DUMMY_EXPENSES = [
     {
       id: "e1",
       title: "Toilet Paper",
@@ -24,7 +23,20 @@ function App() {
     }
   ];
 
-  return <Expenses items={expenses}></Expenses>;
+const App = () => {
+  
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES)
+  const expenseDataHandler = (savedExpenseData) => {
+    setExpenses((prevExpenses) => {
+      return [savedExpenseData,...prevExpenses]
+    })
+  }
+
+  return (
+  <div>
+    <NewExpense saveExpenseData = {expenseDataHandler}/>
+    <Expenses items={expenses} />
+  </div>)
 }
 
 export default App;
